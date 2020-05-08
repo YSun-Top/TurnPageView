@@ -1,11 +1,8 @@
 package com.yoy.turnpageview.data;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.util.DisplayMetrics;
-import android.util.TypedValue;
 import android.view.View;
 
 import com.yoy.turnpageview.widget.view.PageView;
@@ -17,11 +14,12 @@ import java.util.List;
  * Created by newbiechen on 17-7-1.
  */
 public class PageLoader {
-    private Context mContext;
     // 页面显示类
     private PageView mPageView;
     // 当前显示的页
     private PageBean mCurPage;
+    // 被遮盖的页，或者认为被取消显示的页
+    private PageBean mCancelPage;
     //页面的视图列表
     private List<PageBean> mCurPageList = new ArrayList<>();
     //应用的宽高
@@ -31,7 +29,6 @@ public class PageLoader {
     /*****************************init params*******************************/
     public PageLoader(PageView pageView) {
         mPageView = pageView;
-        mContext = pageView.getContext();
         mPageView.drawCurPage(false);
         mPageView.setPageMode();
     }
@@ -43,6 +40,7 @@ public class PageLoader {
     public void openChapter() {
         mCurPage = getCurPage(0);
         mPageView.drawCurPage(false);
+        mCancelPage = mCurPage;
     }
 
     public void drawPage(Bitmap bitmap, boolean isUpdate) {
@@ -75,6 +73,7 @@ public class PageLoader {
     public boolean prev() {
         PageBean prevPage = getPrevPage();
         if (prevPage == null) return false;
+        mCancelPage = mCurPage;
         mCurPage = prevPage;
         mPageView.drawNextPage();
         return true;
@@ -86,6 +85,7 @@ public class PageLoader {
     public boolean next() {
         PageBean nextPage = getNextPage();
         if (nextPage == null) return false;
+        mCancelPage = mCurPage;
         mCurPage = nextPage;
         mPageView.drawNextPage();
         return true;
@@ -120,6 +120,14 @@ public class PageLoader {
         return mCurPageList.get(pos);
     }
 
+    /**
+     * 取消翻页
+     * 当放弃翻页时必须调用这段代码，否则会出现页序错乱的情况
+     */
+    public void pageCancel() {
+        mCurPage = mCancelPage;
+    }
+
     //region  页面列表管理
     public void addPage(View view) {
         addPage(new PageBean(view));
@@ -136,20 +144,4 @@ public class PageLoader {
         return true;
     }
     //endregion
-
-    /**
-     * 单位转换，dp->px
-     */
-    private int dpToPx(int dp) {
-        DisplayMetrics metrics = mContext.getResources().getDisplayMetrics();
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, metrics);
-    }
-
-    /**
-     * 单位转换，sp->px
-     */
-    private int spToPx(int sp) {
-        DisplayMetrics metrics = mContext.getResources().getDisplayMetrics();
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp, metrics);
-    }
 }

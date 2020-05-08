@@ -1,5 +1,6 @@
-package com.yoy.turnpageview.widget;
+package com.yoy.turnpageview.widget.adapter;
 
+import android.database.DataSetObservable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -13,6 +14,7 @@ import java.util.List;
  * Created by Void on 2020/5/2 22:19
  */
 public class PageAdapter extends BaseAdapter {
+    DataSetObservable dataSetObservable=new DataSetObservable();
     private List<PageBean> items = new ArrayList<>();
 
     @Override
