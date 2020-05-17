@@ -122,9 +122,12 @@ public abstract class PageAnimation {
         }
     }
 
+    // 动画监听回调
     public interface OnPageChangeListener {
         boolean hasPrev();
 
         boolean hasNext();
+
+        void pageCancel();
     }
 }

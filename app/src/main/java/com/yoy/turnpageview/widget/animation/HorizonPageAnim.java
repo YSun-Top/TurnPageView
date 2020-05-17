@@ -148,6 +148,10 @@ public abstract class HorizonPageAnim extends PageAnimation{
                         }
                     }
                 }
+                // 是否取消翻页
+                if (isCancel){
+                    mListener.pageCancel();
+                }
                 // 开启翻页效果
                 if (!noNext) {
                     startAnim();
