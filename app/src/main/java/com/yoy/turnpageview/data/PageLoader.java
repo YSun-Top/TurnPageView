@@ -3,6 +3,7 @@ package com.yoy.turnpageview.data;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.View;
 
 import com.yoy.turnpageview.widget.view.PageView;
@@ -38,6 +39,7 @@ public class PageLoader {
      * 没有指定都是第一页
      */
     public void openChapter() {
+        Log.e("----", "PageLoader#openChapter");
         mCurPage = getCurPage(0);
         mPageView.drawCurPage(false);
         mCancelPage = mCurPage;
@@ -55,8 +57,11 @@ public class PageLoader {
         if (mCurPage == null) return;
         Canvas canvas = new Canvas(bitmap);
         canvas.drawColor(Color.WHITE);
-        mCurPage.getView().layout(0, 0, mDisplayWidth, mDisplayHeight);
-        mCurPage.getView().draw(canvas);
+        View view=mCurPage.getView();
+        if (view!=null){
+            view.layout(0, 0, mDisplayWidth, mDisplayHeight);
+            view.draw(canvas);
+        }
     }
 
     public void prepareDisplay(int w, int h) {

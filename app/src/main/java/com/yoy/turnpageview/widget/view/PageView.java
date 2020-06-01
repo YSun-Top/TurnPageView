@@ -21,7 +21,7 @@ import com.yoy.turnpageview.widget.animation.SimulationPageAnim;
  * 原作者的GitHub Project Path:(https://github.com/PeachBlossom/treader)
  * 绘制页面显示内容的类
  */
-public class PageView extends AdapterView implements PageAnimation.OnPageChangeListener {
+public class PageView extends ViewGroup implements PageAnimation.OnPageChangeListener {
     private final static String TAG = "BookPageWidget";
     private int mViewWidth = 0; // 当前View的宽
     private int mViewHeight = 0; // 当前View的高
@@ -49,26 +49,6 @@ public class PageView extends AdapterView implements PageAnimation.OnPageChangeL
         //因为viewGroup和view的区别，viewGroup默认不会调用onDraw，
         // 所以需要设置为false或给view设置背景
         setWillNotDraw(false);
-    }
-
-    @Override
-    public Adapter getAdapter() {
-        return null;
-    }
-
-    @Override
-    public void setAdapter(Adapter adapter) {
-
-    }
-
-    @Override
-    public View getSelectedView() {
-        return null;
-    }
-
-    @Override
-    public void setSelection(int position) {
-
     }
 
     @Override

@@ -1,6 +1,5 @@
 package com.yoy.turnpageview.data;
 
-import android.content.Context;
 import android.view.View;
 import android.widget.FrameLayout;
 
@@ -16,10 +15,6 @@ public class PageBean {
      * 请尽量不要主动修改这个值，这可能会导致翻页顺序异常！
      * */
     private int position;
-
-    public PageBean(Context context) {
-        setView(new View(context));
-    }
 
     public PageBean(View mView) {
         setView(mView);

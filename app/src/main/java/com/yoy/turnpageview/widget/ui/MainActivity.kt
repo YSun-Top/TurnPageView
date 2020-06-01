@@ -1,7 +1,8 @@
-package com.yoy.turnpageview
+package com.yoy.turnpageview.widget.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.yoy.turnpageview.R
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
